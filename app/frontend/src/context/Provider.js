@@ -4,8 +4,10 @@ import AppContext from './Context';
 export default function AppProvider({ children }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [needLogin, setNeedLogin] = useState(false);
   const [logged, setLogged] = useState(false);
   const [messages, setMessages] = useState([]);
+  const [loanOptions, setLoanOptions] = useState(false);
 
   const values = useMemo(
     () => ({
@@ -13,20 +15,28 @@ export default function AppProvider({ children }) {
       setUsername,
       password,
       setPassword,
+      needLogin,
+      setNeedLogin,
       logged,
       setLogged,
       messages,
       setMessages,
+      loanOptions,
+      setLoanOptions,
     }),
     [
       username,
       setUsername,
       password,
       setPassword,
+      needLogin,
+      setNeedLogin,
       logged,
       setLogged,
       messages,
       setMessages,
+      loanOptions,
+      setLoanOptions,
     ]
   );
 

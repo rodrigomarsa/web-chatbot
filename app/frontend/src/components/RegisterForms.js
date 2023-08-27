@@ -2,8 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import AppContext from '../context/Context';
 
 export default function RegisterForms() {
-  const { username, setUsername, password, setPassword, setLogged } =
-    useContext(AppContext);
+  const {
+    username,
+    setUsername,
+    password,
+    setPassword,
+    setLogged,
+    setNeedLogin,
+    messages,
+    setMessages,
+  } = useContext(AppContext);
   const [isDisabled, setIsDisabled] = useState(true);
 
   const validatePassword = (passwordToVerify) => {
@@ -17,7 +25,15 @@ export default function RegisterForms() {
   };
 
   const handleSubmit = () => {
+    const loggedAnswer = {
+      content: `Hello ${username}, I'm your assistant. How can I help you?`,
+      from: 'Bot',
+      to: 'User',
+      time: new Date(),
+    };
+    setMessages([...messages, loggedAnswer]);
     setLogged(true);
+    setNeedLogin(false);
   };
 
   useEffect(() => {
@@ -36,7 +52,7 @@ export default function RegisterForms() {
             type="text"
             id="username"
             name="username"
-            placeholder="Username"
+            placeholder="Username (12 characters)"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
@@ -46,7 +62,7 @@ export default function RegisterForms() {
             type="password"
             id="password"
             name="password"
-            placeholder="Password"
+            placeholder="Password (6 characters)"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />

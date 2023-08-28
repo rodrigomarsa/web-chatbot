@@ -20,7 +20,7 @@ const MessageModel = (sequelize, DataTypes) => {
   );
 
   Message.associate = (models) => {
-    Message.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+    Message.belongsTo(models.User, { foreignKey: 'userId', as: 'users' });
   };
 
   return Message;

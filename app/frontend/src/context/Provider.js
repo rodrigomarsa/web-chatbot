@@ -42,3 +42,5 @@ export default function AppProvider({ children }) {
 
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>;
 }
+
+AppProvider.propTypes = {}.isRequired;

@@ -3,14 +3,20 @@ import AppContext from '../context/Context';
 import '../styles/input.css';
 
 export default function Input() {
-  const { logged, setNeedLogin, messages, setMessages, setLoanOptions } =
-    useContext(AppContext);
+  const {
+    logged,
+    setNeedLogin,
+    messages,
+    setMessages,
+    setLoanOptions,
+    username,
+  } = useContext(AppContext);
   const [message, setMessage] = useState('');
 
-  const userMessage = (message) => {
+  const userMessage = (text) => {
     const newMessage = {
-      content: message,
-      from: 'User',
+      content: text,
+      from: logged ? username : 'User',
       to: 'Bot',
       time: new Date(),
     };
@@ -26,9 +32,9 @@ export default function Input() {
     Login2: 'Try to say Hello first',
   };
 
-  const botMessage = (message) => {
+  const botMessage = (text) => {
     const newMessage = {
-      content: message,
+      content: text,
       from: 'Bot',
       to: 'User',
       time: new Date(),

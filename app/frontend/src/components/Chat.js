@@ -61,6 +61,7 @@ export default function Chat() {
           {messages.length > 0 &&
             messages.map(({ content, from }, index) => (
               <p
+                // eslint-disable-next-line react/no-array-index-key
                 key={index}
                 className={`message ${
                   from === 'Bot' ? 'bot-message' : 'user-message'

@@ -1,15 +1,15 @@
 import React from 'react';
 import './App.css';
-import AppProvider from './context/Provider';
-import Chat from './components/Chat';
-import Input from './components/Input';
+import { Routes, Route } from 'react-router-dom';
+import Historic from './pages/Historic';
+import Home from './pages/Home';
 
 function App() {
   return (
-    <AppProvider>
-      <Chat />
-      <Input />
-    </AppProvider>
+    <Routes>
+      <Route path="/historic" element={<Historic />} />
+      <Route path="/" element={<Home />} />
+    </Routes>
   );
 }
 

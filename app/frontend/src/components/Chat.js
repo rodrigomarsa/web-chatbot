@@ -1,20 +1,19 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import AppContext from '../context/Context';
+import RegisterForms from './RegisterForms';
+import '../styles/chat.css';
 
 export default function Chat() {
-  const { messages, loanOptions, setMessages, setLoanOptions } =
+  const { messages, loanOptions, setMessages, setLoanOptions, needLogin } =
     useContext(AppContext);
 
+  const chatContainerRef = useRef(null);
+
   useEffect(() => {
-    // if (window.history.replaceState) {
-    //   window.history.replaceState(null, null, window.location.href);
-    // }
-    const chatDiv = document.getElementById('bottomID');
-    chatDiv.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'start',
-    });
+    const chatContainer = chatContainerRef.current;
+    if (chatContainer) {
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
   }, [messages]);
 
   const options = {
@@ -38,9 +37,13 @@ export default function Chat() {
     };
     const botAnswer = {
       content: (
-        <div>
-          Here is the <a href={link}>link</a>.
-        </div>
+        <span>
+          Here is the{' '}
+          <a href={link} target="_blank" rel="noreferrer">
+            link
+          </a>
+          .
+        </span>
       ),
       from: 'Bot',
       to: 'User',
@@ -51,18 +54,45 @@ export default function Chat() {
   };
 
   return (
-    <section>
-      {messages.length > 0 &&
-        messages.map(({ content }, index) => <p key={index}>{content}</p>)}
+    <section className="chat-container" ref={chatContainerRef}>
+      Chatbot
+      <div className="messages-container">
+        <div className="message-list">
+          {messages.length > 0 &&
+            messages.map(({ content, from }, index) => (
+              <p
+                key={index}
+                className={`message ${
+                  from === 'Bot' ? 'bot-message' : 'user-message'
+                }`}
+              >
+                {content}
+              </p>
+            ))}
+        </div>
+      </div>
+      {needLogin && <RegisterForms />}
       {loanOptions && (
-        <div>
-          <button type="button" onClick={handleLoan(options.a, links.a)}>
+        <div className="options-container">
+          <button
+            className="options-button"
+            type="button"
+            onClick={handleLoan(options.a, links.a)}
+          >
             {options.a}
           </button>
-          <button type="button" onClick={handleLoan(options.b, links.b)}>
+          <button
+            className="options-button"
+            type="button"
+            onClick={handleLoan(options.b, links.b)}
+          >
             {options.b}
           </button>
-          <button type="button" onClick={handleLoan(options.c, links.c)}>
+          <button
+            className="options-button"
+            type="button"
+            onClick={handleLoan(options.c, links.c)}
+          >
             {options.c}
           </button>
         </div>

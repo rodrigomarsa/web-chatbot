@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AppContext from '../context/Context';
+import '../styles/register.css';
 
 export default function RegisterForms() {
   const {
@@ -45,29 +46,36 @@ export default function RegisterForms() {
   }, [username, password]);
 
   return (
-    <div>
+    <div className="register-form-container">
       <form>
-        <label htmlFor="username">
+        <label htmlFor="username" className="register-form-label">
           <input
             type="text"
             id="username"
             name="username"
+            className="register-form-input"
             placeholder="Username (12 characters)"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
         </label>
-        <label htmlFor="password">
+        <label htmlFor="password" className="register-form-label">
           <input
             type="password"
             id="password"
             name="password"
+            className="register-form-input"
             placeholder="Password (6 characters)"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </label>
-        <button type="button" disabled={isDisabled} onClick={handleSubmit}>
+        <button
+          type="button"
+          className="register-form-button"
+          disabled={isDisabled}
+          onClick={handleSubmit}
+        >
           Register
         </button>
       </form>

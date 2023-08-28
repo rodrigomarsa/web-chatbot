@@ -1,16 +1,10 @@
 import React, { useContext, useState } from 'react';
 import AppContext from '../context/Context';
-import RegisterForms from './RegisterForms';
+import '../styles/input.css';
 
 export default function Input() {
-  const {
-    logged,
-    needLogin,
-    setNeedLogin,
-    messages,
-    setMessages,
-    setLoanOptions,
-  } = useContext(AppContext);
+  const { logged, setNeedLogin, messages, setMessages, setLoanOptions } =
+    useContext(AppContext);
   const [message, setMessage] = useState('');
 
   const userMessage = (message) => {
@@ -43,19 +37,20 @@ export default function Input() {
   };
 
   const botAnswer = (newUserMessage) => {
-    const initialTerms = ['Hello', 'Good', 'I want'];
-    const endTerms = ['Goodbye', 'Bye', 'See you later'];
+    const lowerUserMessage = newUserMessage.content.toLowerCase();
+    const initialTerms = ['hello', 'good', 'i want'];
+    const endTerms = ['goodbye', 'bye', 'see you later'];
 
     switch (true) {
-      case initialTerms.some((term) => newUserMessage.content.includes(term)):
+      case initialTerms.some((term) => lowerUserMessage.includes(term)):
         setNeedLogin(true);
         return botMessage(messagesFromBot.Login);
-      case endTerms.some((term) => newUserMessage.content.includes(term)):
+      case endTerms.some((term) => lowerUserMessage.includes(term)):
         return botMessage(messagesFromBot.Goodbye);
-      case newUserMessage.content.includes('loan') && logged:
+      case lowerUserMessage.includes('loan') && logged:
         setLoanOptions(true);
         return botMessage(messagesFromBot.Options);
-      case newUserMessage.content.includes('loan') && !logged:
+      case lowerUserMessage.includes('loan') && !logged:
         return botMessage(messagesFromBot.Login2);
       default:
         return botMessage(messagesFromBot.TryAgain);
@@ -70,29 +65,25 @@ export default function Input() {
   };
 
   return (
-    <div>
-      {needLogin && <RegisterForms />}
-      <form>
-        <label htmlFor="message">
-          <input
-            type="text"
-            id="message"
-            name="message"
-            placeholder="Message"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                handleMessage();
-              }
-            }}
-          />
-          <button id="bottomID" type="button" onClick={handleMessage}>
-            Send
-          </button>
-        </label>
-      </form>
+    <div className="input-container">
+      <div className="input-field-container">
+        <input
+          type="text"
+          className="input-field"
+          placeholder="Message"
+          value={message}
+          onChange={(e) => setMessage(e.target.value)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              handleMessage();
+            }
+          }}
+        />
+      </div>
+      <button className="send-button" type="button" onClick={handleMessage}>
+        Send
+      </button>
     </div>
   );
 }

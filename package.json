@@ -1,0 +1,22 @@
+{
+  "name": "web-chatbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "compose:up": "cd app && docker-compose up -d --build",
+    "compose:down": "cd app && docker-compose down --remove-orphans",
+    "logs": "cd app && docker-compose logs -f"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rodrigomarsa/web-chatbot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rodrigomarsa/web-chatbot/issues"
+  },
+  "homepage": "https://github.com/rodrigomarsa/web-chatbot#readme"
+}

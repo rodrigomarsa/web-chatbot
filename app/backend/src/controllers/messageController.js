@@ -2,10 +2,10 @@ const { MessageService } = require('../services');
 
 const createMessage = async (req, res) => {
   try {
-    const { content, userId } = req.body;
-    const newMessage = await MessageService.createMessage(content, userId);
+    const { messages, userId } = req.body;
+    const newMessages = await MessageService.createMessage(messages, userId);
 
-    return res.status(201).json(newMessage);
+    return res.status(201).json(newMessages);
   } catch (error) {
     return res.status(500).json(error.message);
   }

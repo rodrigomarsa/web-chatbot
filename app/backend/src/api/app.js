@@ -1,14 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const messageRouter = require('../routes/messageRouter');
 const userRouter = require('../routes/userRouter');
 
 const app = express();
 
-// não remova ou mova esse endpoint
-// app.get('/', (_request, response) => {
-//   response.send();
-// });
-
+app.use(cors());
 app.use(express.json());
 
 app.use('/messages', messageRouter);

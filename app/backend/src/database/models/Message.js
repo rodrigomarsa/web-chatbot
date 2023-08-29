@@ -9,6 +9,7 @@ const MessageModel = (sequelize, DataTypes) => {
         primaryKey: true,
       },
       content: DataTypes.STRING,
+      from: DataTypes.STRING,
       userId: { type: DataTypes.INTEGER, foreignKey: true },
       published: DataTypes.DATE,
     },

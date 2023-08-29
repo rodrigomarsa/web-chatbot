@@ -2,7 +2,6 @@
   "name": "web-chatbot",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
     "compose:up": "cd app && docker-compose up -d --build",
     "compose:down": "cd app && docker-compose down --remove-orphans",
@@ -18,5 +17,12 @@
   "bugs": {
     "url": "https://github.com/rodrigomarsa/web-chatbot/issues"
   },
-  "homepage": "https://github.com/rodrigomarsa/web-chatbot#readme"
+  "homepage": "https://github.com/rodrigomarsa/web-chatbot#readme",
+  "devDependencies": {
+    "axios": "0.24.0",
+    "dotenv": "10.0.0",
+    "mysql2": "2.3.3",
+    "sequelize": "6.25.5",
+    "sequelize-cli": "6.4.1"
+  }
 }

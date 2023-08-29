@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import AppContext from '../context/Context';
 import '../styles/register.css';
+import { postData } from '../services/requests';
 
 export default function RegisterForms() {
   const {
@@ -12,6 +13,7 @@ export default function RegisterForms() {
     setNeedLogin,
     messages,
     setMessages,
+    setUserId,
   } = useContext(AppContext);
   const [isDisabled, setIsDisabled] = useState(true);
 
@@ -25,13 +27,25 @@ export default function RegisterForms() {
     return nameToVerify.length >= NUMBER_TWELVE;
   };
 
-  const handleSubmit = () => {
+  const registerUser = async () => {
+    try {
+      const { id } = await postData('/user', {
+        username,
+        password,
+      });
+      setUserId(id);
+    } catch (error) {
+      console.error(error.message);
+    }
+  };
+
+  const handleSubmit = async () => {
     const loggedAnswer = {
       content: `Hello ${username}, I'm your assistant. How can I help you?`,
       from: 'Bot',
       to: 'User',
-      time: new Date(),
     };
+    await registerUser();
     setMessages([...messages, loggedAnswer]);
     setLogged(true);
     setNeedLogin(false);

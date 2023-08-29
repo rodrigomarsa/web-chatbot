@@ -28,12 +28,11 @@ export default function Chat() {
     c: 'https://example.com/help',
   };
 
-  const handleLoan = (message, link) => () => {
+  const handleLoan = (message, link) => {
     const loanMessage = {
       content: message,
       from: 'User',
       to: 'Bot',
-      time: new Date(),
     };
     const botAnswer = {
       content: (
@@ -47,7 +46,6 @@ export default function Chat() {
       ),
       from: 'Bot',
       to: 'User',
-      time: new Date(),
     };
     setMessages([...messages, loanMessage, botAnswer]);
     setLoanOptions(false);
@@ -61,7 +59,6 @@ export default function Chat() {
           {messages.length > 0 &&
             messages.map(({ content, from }, index) => (
               <p
-                // eslint-disable-next-line react/no-array-index-key
                 key={index}
                 className={`message ${
                   from === 'Bot' ? 'bot-message' : 'user-message'
@@ -78,21 +75,21 @@ export default function Chat() {
           <button
             className="options-button"
             type="button"
-            onClick={handleLoan(options.a, links.a)}
+            onClick={() => handleLoan(options.a, links.a)}
           >
             {options.a}
           </button>
           <button
             className="options-button"
             type="button"
-            onClick={handleLoan(options.b, links.b)}
+            onClick={() => handleLoan(options.b, links.b)}
           >
             {options.b}
           </button>
           <button
             className="options-button"
             type="button"
-            onClick={handleLoan(options.c, links.c)}
+            onClick={() => handleLoan(options.c, links.c)}
           >
             {options.c}
           </button>

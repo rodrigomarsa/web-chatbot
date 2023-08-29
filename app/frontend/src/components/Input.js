@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import AppContext from '../context/Context';
 import '../styles/input.css';
+import { postData } from '../services/requests';
 
 export default function Input() {
   const {
@@ -9,16 +10,16 @@ export default function Input() {
     messages,
     setMessages,
     setLoanOptions,
-    username,
+    userId,
+    setLogged,
   } = useContext(AppContext);
   const [message, setMessage] = useState('');
 
   const userMessage = (text) => {
     const newMessage = {
       content: text,
-      from: logged ? username : 'User',
+      from: 'User',
       to: 'Bot',
-      time: new Date(),
     };
     return newMessage;
   };
@@ -37,9 +38,19 @@ export default function Input() {
       content: text,
       from: 'Bot',
       to: 'User',
-      time: new Date(),
     };
     return newMessage;
+  };
+
+  const saveConversationToDatabase = async (conversation) => {
+    try {
+      await postData('/messages', {
+        messages: conversation,
+        userId,
+      });
+    } catch (error) {
+      console.error(error.message);
+    }
   };
 
   const botAnswer = (newUserMessage) => {
@@ -63,11 +74,17 @@ export default function Input() {
     }
   };
 
-  const handleMessage = () => {
+  const handleMessage = async () => {
     const newUserMessage = userMessage(message);
     const newBotAnswer = botAnswer(newUserMessage);
     setMessages([...messages, newUserMessage, newBotAnswer]);
     setMessage('');
+    if (newBotAnswer.content === messagesFromBot.Goodbye) {
+      const conversationToSave = [...messages, newUserMessage, newBotAnswer];
+      await saveConversationToDatabase(conversationToSave);
+      setMessages([]);
+      setLogged(false);
+    }
   };
 
   return (
@@ -87,7 +104,11 @@ export default function Input() {
           }}
         />
       </div>
-      <button className="send-button" type="button" onClick={handleMessage}>
+      <button
+        className="send-button"
+        type="button"
+        onClick={() => handleMessage()}
+      >
         Send
       </button>
     </div>

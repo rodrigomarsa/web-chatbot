@@ -1,9 +1,13 @@
 const { Message } = require('../database/models');
 
-const createMessage = async (content, userId) => {
-  const newMessage = await Message.create({ content, userId });
+const createMessage = async (messages, userId) => {
+  const newMessages = await Promise.all(
+    messages.map(({ content, from }) =>
+      Message.create({ content, from, userId })
+    )
+  );
 
-  return newMessage;
+  return newMessages;
 };
 
 const findAllMessages = async () => {

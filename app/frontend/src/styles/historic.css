@@ -1,0 +1,24 @@
+.historic-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.historic-title {
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.export-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.export-button:hover {
+  background-color: #0056b3;
+}

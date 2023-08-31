@@ -12,6 +12,7 @@ export default function Input() {
     setLoanOptions,
     userId,
     setLogged,
+    setHistoric,
   } = useContext(AppContext);
   const [message, setMessage] = useState('');
 
@@ -31,6 +32,7 @@ export default function Input() {
     Options: 'Choose one of the options',
     Login: 'You are not logged in. Please register',
     Login2: 'Try to say Hello first',
+    Historic: "You'll be redirected to the history page",
   };
 
   const botMessage = (text) => {
@@ -55,11 +57,14 @@ export default function Input() {
 
   const botAnswer = (newUserMessage) => {
     const lowerUserMessage = newUserMessage.content.toLowerCase();
-    const initialTerms = ['hello', 'good', 'i want'];
+    const initialTerms = ['hello', 'i want'];
     const endTerms = ['goodbye', 'bye', 'see you later'];
 
     switch (true) {
       case initialTerms.some((term) => lowerUserMessage.includes(term)):
+        setNeedLogin(true);
+        return botMessage(messagesFromBot.Login);
+      case lowerUserMessage === 'good':
         setNeedLogin(true);
         return botMessage(messagesFromBot.Login);
       case endTerms.some((term) => lowerUserMessage.includes(term)):
@@ -69,6 +74,9 @@ export default function Input() {
         return botMessage(messagesFromBot.Options);
       case lowerUserMessage.includes('loan') && !logged:
         return botMessage(messagesFromBot.Login2);
+      case lowerUserMessage === 'historic':
+        setHistoric(true);
+        return botMessage(messagesFromBot.Historic);
       default:
         return botMessage(messagesFromBot.TryAgain);
     }

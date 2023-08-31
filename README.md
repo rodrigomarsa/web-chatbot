@@ -35,6 +35,7 @@ Welcome to the Web Chatbot Project! This project is designed to provide a user-f
 
 5. **Conversation History Export:**
    - A dedicated page is provided to export historic conversations in CSV format.
+   - When user says "historic" in chat, will be redirected to history page to download all chat history.
    - The conversations are ordered by date and time, with a timestamp indicating when the user used a conversation termination term, like "Goodbye".
 ---
 

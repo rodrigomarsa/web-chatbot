@@ -9,6 +9,7 @@ export default function AppProvider({ children }) {
   const [messages, setMessages] = useState([]);
   const [loanOptions, setLoanOptions] = useState(false);
   const [userId, setUserId] = useState(0);
+  const [historic, setHistoric] = useState(false);
 
   const values = useMemo(
     () => ({
@@ -26,6 +27,8 @@ export default function AppProvider({ children }) {
       setLoanOptions,
       userId,
       setUserId,
+      historic,
+      setHistoric,
     }),
     [
       username,
@@ -42,6 +45,8 @@ export default function AppProvider({ children }) {
       setLoanOptions,
       userId,
       setUserId,
+      historic,
+      setHistoric,
     ]
   );
 

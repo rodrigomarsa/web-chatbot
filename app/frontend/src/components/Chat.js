@@ -1,13 +1,21 @@
 import React, { useContext, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import AppContext from '../context/Context';
 import RegisterForms from './RegisterForms';
 import '../styles/chat.css';
 
 export default function Chat() {
-  const { messages, loanOptions, setMessages, setLoanOptions, needLogin } =
-    useContext(AppContext);
+  const {
+    messages,
+    loanOptions,
+    setMessages,
+    setLoanOptions,
+    needLogin,
+    historic,
+  } = useContext(AppContext);
 
   const chatContainerRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const chatContainer = chatContainerRef.current;
@@ -70,6 +78,7 @@ export default function Chat() {
         </div>
       </div>
       {needLogin && <RegisterForms />}
+      {historic && navigate('/historic')}
       {loanOptions && (
         <div className="options-container">
           <button
